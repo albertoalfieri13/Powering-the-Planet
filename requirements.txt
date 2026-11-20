@@ -3,3 +3,4 @@ numpy
 matplotlib
 pycountry-convert
 ipykernel
+streamlit
