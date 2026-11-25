@@ -44,3 +44,82 @@ ENERGY_INTERPRETATIONS = {
     throughout the period considered.
     """
 }
+
+CO2_INTERPRETATIONS = {
+    "World": """
+    Global CO2 emissions generally increased between 1950 and 2022,
+    although the growth rate varied across decades.
+    A particularly noticeable acceleration occurred from the early
+    2000s. Emissions temporarily declined in 2020, corresponding
+    to the COVID-19 pandemic, before recovering rapidly.
+    """,
+
+    "Europe": """
+    European CO2 emissions stabilized and began to decline from
+    the early 1990s, showing a different trend from rapidly
+    industrializing regions such as Asia.
+    """,
+
+    "North America": """
+    North American CO2 emissions stabilized and gradually declined
+    from the early 1990s, following a period of substantial growth
+    during the previous decades.
+    """,
+
+    "Asia": """
+    Asian CO2 emissions continued to grow throughout the period,
+    with a particularly sharp acceleration from the early 2000s.
+    This trend contrasts with the stabilization observed in Europe
+    and North America.
+    """,
+
+    "South America": """
+    South American CO2 emissions increased over the period
+    considered, although they remained considerably lower in
+    absolute terms than those of the world's largest emitters.
+    """,
+
+    "Africa": """
+    African CO2 emissions increased over time, while remaining
+    relatively low in absolute terms compared with the world's
+    largest emitting regions.
+    """,
+
+    "Oceania": """
+    CO2 emissions in Oceania increased over the period considered,
+    although their absolute levels remained relatively low
+    compared with those of larger regions.
+    """
+}
+
+GDP_CO2_INTERPRETATIONS = {
+    "trend": """
+    GDP and CO2 emissions follow a similar trend: both increase
+    steadily until 2000, when their growth rates become noticeably
+    steeper. Both also experience a temporary decline during the
+    COVID-19 period, followed by a rapid rebound.
+
+    Overall, GDP has a higher growth rate than CO2 emissions,
+    suggesting relative decoupling: emissions continue to grow,
+    but at a significantly slower rate than GDP.
+    """,
+
+    "regression": """
+    Overall, there appears to be a strong positive correlation
+    between GDP and CO2 emissions, confirmed by the correlation
+    coefficient. Furthermore, the R-squared value indicates that
+    the linear regression model explains a large proportion of
+    the variation in CO2 emissions.
+
+    However, this strong correlation does not necessarily imply
+    causation, as both variables have followed an upward trend
+    over time. At higher GDP levels, corresponding to more recent
+    years, CO2 emissions appear to have grown at a significantly
+    slower rate than GDP, suggesting possible relative decoupling.
+
+    Nevertheless, this observation should be interpreted
+    cautiously, as the high correlation may partly reflect the
+    common upward trends of the two variables rather than a
+    direct economic relationship.
+    """
+}

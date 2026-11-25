@@ -240,7 +240,6 @@ def calculate_global_regression(df_world_co2):
     return slope, intercept, x_line, y_line, correlation, r_squared
 
 
-# Select Europe, North America and Asia (as the most meaningful regions)for the 2000-2022 comparison.
 def prepare_recent_continent_data(df_continents):
     """Select Europe, North America and Asia for the 2000-2022 comparison."""
 
@@ -250,6 +249,7 @@ def prepare_recent_continent_data(df_continents):
         )) &
         (df_continents["year"].between(2000, 2022))
     ].copy()
+
 
 
 # Calculate a separate GDP-CO2 regression for each of the three continents.

@@ -74,6 +74,61 @@ def plot_co2_emissions(df):
 
     return fig
 
+def plot_co2_regions(df, selected_regions):
+    """Create two charts comparing selected CO2 regions."""
+
+    # Keep the original regional groups
+    target_regions_1 = [
+        region for region in ["Europe", "North America", "Asia"]
+        if region in selected_regions
+    ]
+
+    target_regions_2 = [
+        region for region in ["South America", "Africa", "Oceania"]
+        if region in selected_regions
+    ]
+
+    fig, axes = plt.subplots(1, 2, figsize=(16, 6), sharey=True)
+
+    for ax, target_regions in zip(
+        axes,
+        [target_regions_1, target_regions_2]
+    ):
+
+        if not target_regions:
+            ax.set_visible(False)
+            continue
+
+        # Add the World as a reference
+        target_regions = target_regions + ["World"]
+
+        for region in target_regions:
+            df_temp = df[
+                df["country"] == region
+            ].sort_values("year")
+
+            ax.plot(
+                df_temp["year"],
+                df_temp["co2"],
+                label=region,
+                linewidth=2.5 if region == "World" else 2,
+                linestyle="--" if region == "World" else "-"
+            )
+
+        ax.set_xlabel("Year")
+        ax.set_xlim(1950, 2022)
+        ax.grid(True, linestyle="--", alpha=0.4)
+        ax.legend()
+
+    axes[0].set_title("Major Energy Consumers")
+    axes[1].set_title("Other Regions")
+    axes[0].set_ylabel("CO2 emissions (million tonnes)")
+
+    fig.suptitle("CO₂ Emissions by Region (1950-2022)")
+
+    plt.tight_layout()
+    return fig
+
 
 def plot_gdp_vs_co2(df):
     """
@@ -104,6 +159,42 @@ def plot_gdp_vs_co2(df):
     plt.tight_layout()
 
     return fig
+def plot_global_gdp_co2_regression(df_world_co2, regression_results):
+    """Create a scatter plot with the global GDP-CO2 regression line."""
+
+    slope, intercept, x_line, y_line, correlation, r_squared = regression_results
+
+    x = df_world_co2["gdp"]
+    y = df_world_co2["co2"]
+
+    fig, ax = plt.subplots(figsize=(10, 6))
+
+    ax.scatter(
+        x,
+        y,
+        alpha=0.6,
+        label="Annual observations"
+    )
+
+    ax.plot(
+        x_line,
+        y_line,
+        color="red",
+        label="Linear regression"
+    )
+
+    ax.set_title(
+        "Relationship between Global GDP and CO₂ Emissions (1950-2022)"
+    )
+    ax.set_xlabel("GDP")
+    ax.set_ylabel("CO2 emissions (million tonnes)")
+    ax.legend()
+    ax.grid(True, alpha=0.3)
+
+    plt.tight_layout()
+    return fig
+
+
 
 
 def plot_per_capita(df):
@@ -179,7 +270,7 @@ def plot_world_energy_mix(df):
     ax.stackplot(
         df_chart["year"],
         *[df_chart[col] for col in mix_columns],
-        labels=["Coal", "Gas", "Oil", "Renewables", "Nuclear"],
+        labels=["Coal", "Oil", "Gas", "Nuclear", "Renewables"],
         alpha=0.85
     )
 
