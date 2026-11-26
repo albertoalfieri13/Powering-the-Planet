@@ -106,7 +106,7 @@ def prepare_co2_analysis_data(df):
     df_co2_analysis = df[columns_of_interest]
     df_co2_analysis = df_co2_analysis[df_co2_analysis["year"] >= 1950]
     df_co2_analysis = df_co2_analysis.dropna(
-        subset=["co2", "gdp", "population"]
+        subset=["co2"]
     )
 
     return df_co2_analysis
