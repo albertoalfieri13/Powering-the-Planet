@@ -196,27 +196,37 @@ def plot_global_gdp_co2_regression(df_world_co2, regression_results):
 
 
 
-
-def plot_per_capita(df):
+def plot_per_capita(df, selected_regions):
     """
-    Create two charts comparing CO2 emissions per capita
-    across different geographical regions.
+    Create charts comparing CO2 emissions per capita
+    across selected geographical regions.
     """
 
     # Define the two groups of regions
     target_regions_1 = ["Europe", "North America", "Asia", "World"]
     target_regions_2 = ["South America", "Africa", "Oceania", "World"]
 
-    # Create two charts sharing the same y-axis
-    fig, axes = plt.subplots(1, 2, figsize=(16, 6), sharey=True)
+    # Keep only selected regions in each group
+    groups = [
+        [region for region in target_regions_1 if region in selected_regions],
+        [region for region in target_regions_2 if region in selected_regions]
+    ]
 
-    # Plot the data for both groups
-    for ax, target_regions in zip(
-        axes,
-        [target_regions_1, target_regions_2]
-    ):
+    # Remove empty groups
+    groups = [group for group in groups if group]
 
-        # Plot each region
+    # Create the charts
+    fig, axes = plt.subplots(
+        1,
+        len(groups),
+        figsize=(8 * len(groups), 6),
+        sharey=True,
+        squeeze=False
+    )
+
+    # Plot the selected regions
+    for ax, target_regions in zip(axes[0], groups):
+
         for region in target_regions:
 
             df_temp = df[
@@ -238,13 +248,18 @@ def plot_per_capita(df):
         ax.legend()
 
     # Add titles and labels
-    axes[0].set_title("Major Energy Consumers")
-    axes[1].set_title("Other Regions")
-    axes[0].set_ylabel("CO2 emissions per capita (tonnes/person/year)")
+    if len(groups) == 2:
+        axes[0, 0].set_title("Major Energy Consumers")
+        axes[0, 1].set_title("Other Regions")
+    else:
+        axes[0, 0].set_title("Selected Regions")
+
+    axes[0, 0].set_ylabel(
+        "CO2 emissions per capita (tonnes/person/year)"
+    )
 
     fig.suptitle("CO₂ Emissions per Capita by Region (1950-2022)")
 
-    # Adjust layout
     plt.tight_layout()
 
     return fig
@@ -254,22 +269,13 @@ def plot_per_capita(df):
 def plot_world_energy_mix(df):
     """Create a stacked area chart of the global energy mix."""
 
-    mix_columns = [
-    "coal_share_energy",
-    "oil_share_energy",
-    "gas_share_energy",
-    "nuclear_share_energy",
-    "renewables_share_energy"
-]
-    
-
-    df_chart = df.dropna(subset=mix_columns).sort_values("year")
+    df_chart = df.dropna(subset=ENERGY_COLUMNS).sort_values("year")
 
     fig, ax = plt.subplots(figsize=(12, 6))
 
     ax.stackplot(
         df_chart["year"],
-        *[df_chart[col] for col in mix_columns],
+        *[df_chart[col] for col in ENERGY_COLUMNS],
         labels=["Coal", "Oil", "Gas", "Nuclear", "Renewables"],
         alpha=0.85
     )
@@ -277,14 +283,13 @@ def plot_world_energy_mix(df):
     ax.set_title("Historical Evolution of World's Primary Energy Mix")
     ax.set_xlabel("Year")
     ax.set_ylabel("Share of Primary Energy (%)")
-    ax.set_xlim(1950, 2025)
+    ax.set_xlim(1965, 2024)
     ax.set_ylim(0, 100)
     ax.legend(loc="upper left")
     ax.grid(True, linestyle="--", alpha=0.5)
 
     plt.tight_layout()
     return fig
-
 
 
 def plot_world_energy_transition(df):
@@ -400,4 +405,50 @@ def plot_renewables_comparison(df):
     fig.suptitle("Renewables Share of Primary Energy by Region (1965-2022)")
 
     plt.tight_layout()
+    return fig
+
+def plot_continent_gdp_co2_regressions(regression_results, selected_continents, period):
+
+    # Create one chart for each selected continent.
+    fig, axes = plt.subplots(
+        1,
+        len(selected_continents),
+        figsize=(6 * len(selected_continents), 5),
+        squeeze=False
+    )
+
+    for ax, continent in zip(axes[0], selected_continents):
+
+        results = regression_results[continent]
+
+        # Display annual observations and regression line.
+        ax.scatter(
+            results["x"],
+            results["y"],
+            alpha=0.6,
+            label="Annual observations"
+        )
+
+        ax.plot(
+            results["x_line"],
+            results["y_line"],
+            color="red",
+            label="Linear regression"
+        )
+
+        # Add chart title and labels.
+        ax.set_title(
+            f"{continent} (R² = {results['r_squared']:.3f})"
+        )
+        ax.set_xlabel("GDP (trillion dollars)")
+        ax.set_ylabel("CO₂ emissions (million tonnes)")
+        ax.legend()
+        ax.grid(True, alpha=0.3)
+
+    fig.suptitle(
+        f"GDP vs CO₂ Emissions by Continent ({period})"
+    )
+
+    plt.tight_layout()
+
     return fig

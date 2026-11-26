@@ -123,3 +123,68 @@ GDP_CO2_INTERPRETATIONS = {
     direct economic relationship.
     """
 }
+
+GDP_CONTINENT_INTERPRETATIONS = {
+    "1950-2022": {
+        "Europe": """
+        In Europe, the relationship between GDP and CO₂ emissions is relatively
+        weak over the entire period. This is mainly because emissions begin
+        to decline while GDP continues to grow, making a single linear
+        regression less representative of the overall trend.
+        """,
+
+        "North America": """
+        North America shows a similar pattern to Europe, although the reversal
+        between economic growth and emissions occurs at a higher GDP level.
+        The observations are somewhat closer to the regression line, resulting
+        in a stronger linear relationship than in Europe.
+        """,
+
+        "Asia": """
+        Asia shows a strong positive relationship between GDP and CO₂
+        emissions. Throughout the period, economic growth has been accompanied
+        by a substantial increase in emissions, with observations remaining
+        relatively close to the regression line.
+        """
+    },
+
+    "2000-2022": {
+        "Europe": """
+        In Europe, the relationship between GDP and CO₂ emissions becomes
+        negative in the more recent period. This is consistent with a
+        reduction in emissions alongside continued economic growth, possibly
+        supported by environmental policies and the transition towards
+        cleaner energy sources.
+        """,
+
+        "North America": """
+        North America also shows a negative relationship in the recent period.
+        Economic growth has been accompanied by a reduction in total CO₂
+        emissions, potentially reflecting improvements in energy efficiency
+        and the use of cleaner energy sources.
+        """,
+
+        "Asia": """
+        Asia maintains a positive relationship between GDP and CO₂ emissions.
+        The region's rapid economic and industrial growth has continued to be
+        associated with increasing emissions. The relocation of some
+        energy-intensive production to Asia may also contribute to this trend.
+        """
+    }
+}
+
+PER_CAPITA_INTERPRETATION = """
+Analysing emissions on a per capita basis provides a more
+nuanced perspective on the environmental impact of different
+regions. Comparing total emissions alone can be misleading,
+as it does not account for differences in population size.
+
+The analysis shows that North America has significantly
+higher CO₂ emissions per capita than Europe and Asia.
+This may partly reflect higher energy consumption,
+car dependency, larger living spaces and consumption-intensive
+lifestyles.
+
+Therefore, despite some progress in reducing total emissions,
+North America's average carbon footprint remains particularly high.
+"""

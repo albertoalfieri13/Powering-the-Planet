@@ -222,10 +222,16 @@ def aggregate_continent_data(df_analysis):
 
 # Calculate the global linear regression, correlation and R-squared.
 def calculate_global_regression(df_world_co2):
-    """Calculate the linear regression, correlation and R-squared for global GDP/CO2."""
+    """Calculate the global GDP-CO2 regression, correlation and R-squared."""
 
-    x = df_world_co2["gdp"]
-    y = df_world_co2["co2"]
+    # Select complete GDP and CO2 observations.
+    df_regression = df_world_co2[
+        ["gdp", "co2"]
+    ].dropna()
+
+    # Express GDP in trillions to improve numerical stability.
+    x = df_regression["gdp"] / 1_000_000_000_000
+    y = df_regression["co2"]
 
     # Calculate the slope and intercept of the regression line.
     slope, intercept = np.polyfit(x, y, 1)
@@ -234,8 +240,12 @@ def calculate_global_regression(df_world_co2):
     x_line = np.linspace(x.min(), x.max(), 100)
     y_line = slope * x_line + intercept
 
+    # Calculate correlation and R-squared.
     correlation = np.corrcoef(x, y)[0, 1]
     r_squared = correlation ** 2
+
+    # Convert GDP values back to the original scale for plotting.
+    x_line = x_line * 1_000_000_000_000
 
     return slope, intercept, x_line, y_line, correlation, r_squared
 

@@ -64,13 +64,8 @@ elif section == "CO₂ Emissions":
 
 # GDP VS CO2
 elif section == "GDP vs CO₂":
-
     df_co2 = load_co2_data()
-
-    df_world_co2 = prepare_co2_data(df_co2)
-
-    show_gdp_vs_co2(df_world_co2)
-
+    show_gdp_vs_co2(df_co2)
 
 # PER CAPITA ANALYSIS
 elif section == "Per Capita Analysis":
