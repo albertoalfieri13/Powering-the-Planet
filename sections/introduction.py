@@ -25,3 +25,11 @@ def show_introduction():
 
     The objective is to understand not only how energy systems have changed, but also whether economic development can become increasingly sustainable.
     """)
+    st.subheader("Data Sources")
+
+    st.markdown(
+        """
+        - [Our World in Data – Energy Dataset](https://github.com/owid/energy-data)
+        - [Our World in Data – CO₂ Dataset](https://github.com/owid/co2-data)
+        """
+    )

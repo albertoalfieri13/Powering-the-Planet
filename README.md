@@ -16,8 +16,8 @@ The analysis aims to address three main questions:
 
 The project primarily relies on datasets provided by **Our World in Data**:
 
-- [Our World in Data – Energy Dataset](https://github.com/owid/co2-data?utm_source=chatgpt.com)
-- [Our World in Data – CO₂ and Greenhouse Gas Emissions](https://github.com/owid/co2-data?utm_source=chatgpt.com)
+- [Our World in Data – Energy Dataset](https://github.com/owid/energy-data)
+- [Our World in Data – CO₂ and Greenhouse Gas Emissions](https://github.com/owid/co2-data)
 
 This project uses the legacy versions of the Our World in Data datasets, accessed through their public GitHub repositories.
 
@@ -42,19 +42,37 @@ Particular attention is given to Europe, North America and Asia, while other geo
 - Pandas
 - NumPy
 - Matplotlib
-- Pycountry-convert
+- pycountry-convert
 - Jupyter Notebook
+- Streamlit
 
 ## Project Structure
 
-```text
 Powering-the-Planet/
 │
-├── Powering the Planet.ipynb
+├── notebooks/
+│   └── Powering the Planet.ipynb
+│
+├── powering_planet/
+│   ├── __init__.py
+│   ├── analysis.py
+│   ├── config.py
+│   ├── data.py
+│   ├── interpretations.py
+│   └── plots.py
+│
+├── sections/
+│   ├── __init__.py
+│   ├── co2_emissions.py
+│   ├── energy_mix.py
+│   ├── gdp_vs_co2.py
+│   ├── introduction.py
+│   └── per_capita.py
+│
+├── .gitignore
+├── app.py
 ├── README.md
-├── requirements.txt
-└── .gitignore
-```
+└── requirements.txt
 
 ## Installation and Usage
 
@@ -88,7 +106,19 @@ Powering-the-Planet/
    pip install -r requirements.txt
    ```
 
-5. Launch Jupyter Notebook or open the notebook in Visual Studio Code and execute the cells.
+### Running the Jupyter Notebook
+
+Open the `notebooks/Powering the Planet.ipynb` file in Jupyter Notebook or Visual Studio Code and execute the cells.
+
+### Running the Streamlit Application
+
+From the project directory, run:
+
+```bash
+streamlit run app.py
+```
+
+The application will open in your default web browser.
 
 ## Author
 

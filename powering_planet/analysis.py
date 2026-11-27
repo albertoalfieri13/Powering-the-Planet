@@ -91,9 +91,9 @@ def prepare_renewables_comparison_data(df_regions):
 
 # CO2 ANALYSIS
 
-# Select the most relevant CO2 variables from 1950 onwards and removes observations with missing values.
+# Select the most relevant CO2 variables from 1950 to 2022 and removes observations with missing values.
 def prepare_co2_analysis_data(df):
-    """Select the core CO2 variables from 1950 onwards and remove incomplete rows."""
+    """Select the core CO2 variables from 1950 to 2022 and remove rows without CO2 data."""
 
     columns_of_interest = [
         "country",
@@ -104,7 +104,7 @@ def prepare_co2_analysis_data(df):
     ]
 
     df_co2_analysis = df[columns_of_interest]
-    df_co2_analysis = df_co2_analysis[df_co2_analysis["year"] >= 1950]
+    df_co2_analysis = df_co2_analysis[df_co2_analysis["year"].between(1950, 2022)]
     df_co2_analysis = df_co2_analysis.dropna(
         subset=["co2"]
     )
