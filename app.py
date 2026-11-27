@@ -7,7 +7,7 @@ from sections.energy_mix import show_energy_mix
 from sections.co2_emissions import show_co2_emissions
 from sections.gdp_vs_co2 import show_gdp_vs_co2
 from sections.per_capita import show_per_capita
-from powering_planet.analysis import prepare_co2_data
+
 
 
 # PAGE CONFIGURATION
